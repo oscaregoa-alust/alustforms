@@ -14,8 +14,6 @@
     }
     a{color:inherit; text-decoration:none}
     a:hover{opacity:.8}
-
-    /* Lateral: DESIGN STUDIO (semi-bold) */
     .vertical-label{
       position:fixed; top:50%; left:0;
       transform:translateY(-50%) rotate(-90deg);
@@ -24,8 +22,6 @@
       color:#fff; white-space:nowrap; opacity:.95;
       padding-left:10px; pointer-events:none; font-weight:600;
     }
-
-    /* Top-right: CONTACT / IG */
     .util{
       position:fixed; right:0; top:0; height:64px;
       display:flex; align-items:center; gap:48px;
@@ -33,8 +29,6 @@
       font-size:.9rem; letter-spacing:.28em;
     }
     .util a{ color:#fff; font-weight:600; }
-
-    /* HERO inicial 65/35 */
     .hero{
       position:relative; height:100vh; min-height:540px; overflow:hidden;
     }
@@ -44,8 +38,6 @@
     }
     .hero-left { left:0;  width:65%; background-image:url("images/hero-left.jpg"); }
     .hero-right{ right:0; width:35%; background-image:url("images/hero-right.jpg"); }
-
-    /* Ciudades */
     .cities{
       position:absolute; right:18px; bottom:18px; z-index:3;
       display:flex; gap:18px; align-items:center;
@@ -53,16 +45,12 @@
     }
     .cities span{ color:#E8E8E8; font-weight:600; }
     .sep{opacity:.5; color:#aaa;}
-
-    /* Indicador scroll */
     .scroll{
       position:absolute; left:24px; bottom:26px; z-index:3;
       width:1px; height:42px; background:#fff; opacity:.6;
       animation:float 1.7s ease-in-out infinite;
     }
     @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
-
-    /* Overlay logo (sticky + fade) */
     .logo-overlay{
       position:fixed; inset:0; height:100vh; z-index:40;
       display:grid; place-items:center; pointer-events:none;
@@ -72,60 +60,47 @@
            filter:drop-shadow(0 8px 18px rgba(0,0,0,.55)); }
     .tag{ margin-top:12px; color:#f2f2f2; opacity:.95;
           letter-spacing:.22em; font-size:clamp(12px,1.5vw,16px); }
-
-    /* ====== TIRAS TIPO HERO (sin huecos) ====== */
     .strips{ margin:0; padding:0; }
     .row{
       display:flex; gap:0; width:100%;
       height:var(--h, 72vh); min-height:420px;
     }
     .row + .row{ margin-top:0; }
-
     .cell{
       flex:1 1 auto;
       background-position:center;
       background-size:cover;
       background-repeat:no-repeat;
     }
-
-    /* Ratios base */
     .split-65 .cell:first-child{ flex-basis:65%; max-width:65%; }
     .split-65 .cell:last-child { flex-basis:35%; max-width:35%; }
-    .split-35 .cell:first-child{ flex-basis:35%; max-width:35%; }
-    .split-35 .cell:last-child { flex-basis:65%; max-width:65%; }
     .split-60 .cell:first-child{ flex-basis:60%; max-width:60%; }
     .split-60 .cell:last-child { flex-basis:40%; max-width:40%; }
+    .split-35 .cell:first-child{ flex-basis:35%; max-width:35%; }
+    .split-35 .cell:last-child { flex-basis:65%; max-width:65%; }
     .full-100 .cell{ flex-basis:100%; max-width:100%; }
-
-    /* Alturas por fila (ajustables) */
     .h80{ --h:80vh; }
     .h74{ --h:74vh; }
     .h72{ --h:72vh; }
     .h68{ --h:68vh; }
     .h62{ --h:62vh; }
-
-    /* Fila AUTO: altura se adapta a la imagen izquierda (05 completa) */
     .row.auto{ height:auto; min-height:0; align-items:stretch; }
     .row.auto .cell:first-child{ display:flex; }
     .row.auto .cell:first-child img{
-      width:100%; height:auto; display:block; /* 05 completa */
+      width:100%; height:auto; display:block;
     }
     .row.auto .cell:last-child{
       background-size:cover; background-position:center;
-      min-height:1px; /* se estira a la altura de la izquierda */
+      min-height:1px;
     }
-
-    /* Fila full-bleed con IMG para mostrar COMPLETA (10) */
     .row.full-100{ height:auto; min-height:0; }
     .row.full-100 .cell{
       flex-basis:100%; max-width:100%;
       background:none; padding:0; margin:0;
     }
     .row.full-100 img{
-      display:block; width:100%; height:auto; /* sin recorte */
+      display:block; width:100%; height:auto;
     }
-
-    /* Responsive */
     @media (max-width:900px){
       .hero-left, .hero-right{ width:100%; }
       .hero-left{ height:50vh; bottom:auto; }
@@ -134,124 +109,115 @@
       .cities{right:14px; bottom:14px; gap:12px}
       .vertical-label{font-size:.75rem; letter-spacing:.25em}
       .util{gap:28px}
-
       .row{ flex-direction:column; height:auto; min-height:0; }
       .cell{ min-height:54vh; }
       .split-65 .cell:first-child,
       .split-65 .cell:last-child,
+      .split-60 .cell:first-child,
+      .split-60 .cell:last-child,
       .split-35 .cell:first-child,
       .split-35 .cell:last-child,
-      .split-60 .cell:first-child,
-      .split-60 .cell:last-child{
+      .row.auto .cell,
+      .row.full-100 .cell{
         max-width:100%; flex-basis:100%;
       }
-      .row.auto .cell{ min-height:0; }
-      .row.full-100 .cell{ min-height:0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Lateral -->
-  <div class="vertical-label">D&nbsp;E&nbsp;S&nbsp;I&nbsp;G&nbsp;N&nbsp;&nbsp;S&nbsp;T&nbsp;U&nbsp;D&nbsp;I&nbsp;O</div>
+<div class="vertical-label">D&nbsp;E&nbsp;S&nbsp;I&nbsp;G&nbsp;N&nbsp;&nbsp;S&nbsp;T&nbsp;U&nbsp;D&nbsp;I&nbsp;O</div>
 
-  <!-- Top-right -->
-  <nav class="util">
-    <a href="contact.html">C&nbsp;O&nbsp;N&nbsp;T&nbsp;A&nbsp;C&nbsp;T</a>
-    <a href="https://instagram.com/alustforms" target="_blank" rel="noopener">I&nbsp;G</a>
-  </nav>
+<nav class="util">
+  <a href="contact.html">C&nbsp;O&nbsp;N&nbsp;T&nbsp;A&nbsp;C&nbsp;T</a>
+  <a href="https://instagram.com/alustforms" target="_blank" rel="noopener">I&nbsp;G</a>
+</nav>
 
-  <!-- HERO inicial -->
-  <header class="hero" id="hero">
-    <div class="hero-left"></div>
-    <div class="hero-right"></div>
-    <div class="cities">
-      <span>TIJUANA</span> <span class="sep">|</span> <span>SAN DIEGO</span>
-    </div>
-    <div class="scroll"></div>
-  </header>
+<header class="hero" id="hero">
+  <div class="hero-left"></div>
+  <div class="hero-right"></div>
+  <div class="cities">
+    <span>TIJUANA</span> <span class="sep">|</span> <span>SAN DIEGO</span>
+  </div>
+  <div class="scroll"></div>
+</header>
 
-  <!-- Overlay Logo -->
-  <div class="logo-overlay" id="logoOverlay">
-    <div style="text-align:center">
-      <img src="images/logo.png" class="logo" id="logo" alt="ALUST" />
-      <div class="tag" id="tag">FORM &amp; PURPOSE</div>
-    </div>
+<div class="logo-overlay" id="logoOverlay">
+  <div style="text-align:center">
+    <img src="images/logo.png" class="logo" id="logo" alt="ALUST" />
+    <div class="tag" id="tag">FORM &amp; PURPOSE</div>
+  </div>
+</div>
+
+<section class="strips">
+
+  <!-- Fila 1 -->
+  <div class="row split-65 h80">
+    <div class="cell" style="background-image:url('images/work-01.jpg')"></div>
+    <div class="cell" style="background-image:url('images/work-02.jpg')"></div>
   </div>
 
-  <!-- ====== TIRAS ====== -->
-  <section class="strips">
+  <!-- Fila 2 -->
+  <div class="row split-35 h74">
+    <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%;"></div>
+    <div class="cell" style="background-image:url('images/work-04.jpg')"></div>
+  </div>
 
-    <!-- Fila 1 -->
-    <div class="row split-65 h80">
-      <div class="cell" style="background-image:url('images/work-01.jpg')"></div>
-      <div class="cell" style="background-image:url('images/work-02.jpg')"></div>
+  <!-- Fila 3 (actualizada: 60/40) -->
+  <div class="row split-60 auto">
+    <div class="cell">
+      <img src="images/work-05.jpg" alt="Project 05">
     </div>
+    <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
+  </div>
 
-    <!-- Fila 2 (03 con zoom sutil y centrada; 04 normal) -->
-    <div class="row split-35 h74">
-      <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%;"></div>
-      <div class="cell" style="background-image:url('images/work-04.jpg')"></div>
-    </div>
+  <!-- Fila 4 -->
+  <div class="row split-35 h68">
+    <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
+    <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
+  </div>
 
-    <!-- Fila 3: 60/40 con 05 COMPLETA (izq) y 09 cover centrado (der) -->
-    <div class="row split-60 auto">
-      <!-- 05 completa -->
-      <div class="cell">
-        <img src="images/work-05.jpg" alt="Project 05">
-      </div>
-      <!-- 09 con cover centrado; ajusta foco con el porcentaje si quieres -->
-      <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
-    </div>
+  <!-- NUEVA Fila con work-07 -->
+  <div class="row split-65 h68">
+    <div class="cell" style="background-image:url('images/work-07.jpg')"></div>
+    <div class="cell" style="background-image:url('images/work-11.jpg')"></div>
+  </div>
 
-    <!-- Fila 4: (work-07 eliminado) 06 | 08 -->
-    <div class="row split-35 h68">
-      <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
-      <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
-    </div>
+  <!-- Fila final: full-bleed -->
+  <div class="row full-100">
+    <div class="cell"><img src="images/work-10.jpg" alt="Project 10"></div>
+  </div>
 
-    <!-- Fila 5: 10 COMPLETA full-bleed (sin recorte) -->
-    <div class="row full-100">
-      <div class="cell">
-        <img src="images/work-10.jpg" alt="Project 10">
-      </div>
-    </div>
+</section>
 
-    <!-- Si agregas 11:
-    <div class="row full-100">
-      <div class="cell"><img src="images/work-11.jpg" alt="Project 11"></div>
-    </div>
-    -->
-  </section>
+<script>
+(function(){
+  const hero = document.getElementById('hero');
+  const overlay = document.getElementById('logoOverlay');
+  const logo = document.getElementById('logo');
+  const tag = document.getElementById('tag');
 
-  <!-- Fade logo script -->
-  <script>
-    (function(){
-      const hero   = document.getElementById('hero');
-      const overlay= document.getElementById('logoOverlay');
-      const logo   = document.getElementById('logo');
-      const tag    = document.getElementById('tag');
+  function onScroll(){
+    const rect = hero.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const inView = rect.bottom > 0 && rect.top < vh;
+    overlay.style.visibility = inView ? 'visible' : 'hidden';
+    if(!inView){ return; }
 
-      function onScroll(){
-        const rect = hero.getBoundingClientRect();
-        const vh   = window.innerHeight;
-        const inView = rect.bottom > 0 && rect.top < vh;
-        overlay.style.visibility = inView ? 'visible' : 'hidden';
-        if(!inView){ return; }
+    const scrolled = Math.min(Math.max(rect.bottom / Math.max(rect.height, 1), 0), 1);
+    const opacity = Math.pow(scrolled, 1.2);
+    overlay.style.opacity = opacity;
 
-        const scrolled = Math.min(Math.max(rect.bottom / Math.max(rect.height, 1), 0), 1);
-        const opacity = Math.pow(scrolled, 1.2);
-        overlay.style.opacity = opacity;
+    const shift = (1 - scrolled) * 20;
+    logo.style.transform = `translateY(${-shift}px)`;
+    tag.style.opacity = opacity;
+  }
 
-        const shift = (1 - scrolled) * 20;
-        logo.style.transform = `translateY(${-shift}px)`;
-        tag.style.opacity = opacity;
-      }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      window.addEventListener('load', onScroll);
-      window.addEventListener('resize', onScroll);
-    })();
-  </script>
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('load', onScroll);
+  window.addEventListener('resize', onScroll);
+})();
+</script>
 
 </body>
 </html>
