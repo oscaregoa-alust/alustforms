@@ -144,8 +144,7 @@
       display:block; width:100%; height:auto;
     }
 
-    /* Filas que queremos igual que antes en desktop,
-       pero controladas con <img> para móvil */
+    /* Filas donde usamos <img> en lugar de background */
     .row.img-row{
       position:relative;
     }
@@ -157,7 +156,20 @@
       width:100%;
       height:100%;
       display:block;
-      object-fit:cover;     /* DESKTOP: recorte bonito */
+      object-fit:cover; /* desktop: recorte limpio */
+    }
+
+    /* SOLO para la fila 05/09: queremos ver las piezas completas en desktop */
+    .row-05-09{
+      height:auto;
+      min-height:0;
+    }
+    .row-05-09 .cell{
+      height:auto;
+    }
+    .row-05-09 .cell img{
+      height:auto;
+      object-fit:contain;
     }
 
     /* --------- MOBILE / TABLET --------- */
@@ -226,14 +238,20 @@
         min-height:40vh;
       }
 
-      /* En móvil, las filas con img-row dejan de forzar altura,
-         y las imágenes se ven completas. */
+      /* En móvil, las filas con img-row NO tienen altura forzada,
+         y las imágenes se ven completas una debajo de otra. */
+      .row.img-row{
+        height:auto !important;
+        min-height:0 !important;
+      }
       .row.img-row .cell{
-        min-height:auto;
+        height:auto !important;
+        min-height:0 !important;
       }
       .row.img-row .cell img{
-        height:auto;
-        object-fit:contain;   /* muestra la foto completa */
+        width:100%;
+        height:auto !important;
+        object-fit:contain;
       }
     }
 
@@ -248,8 +266,11 @@
       .cell{
         min-height:42vh;
       }
+      .row.img-row .cell{
+        min-height:0 !important;
+      }
       .row.img-row .cell img{
-        height:auto;
+        height:auto !important;
       }
       .cities{
         font-size:.7rem;
@@ -310,8 +331,8 @@
     </div>
   </div>
 
-  <!-- Fila 4: 05 / 09 -->
-  <div class="row split-50 h72 img-row">
+  <!-- Fila 4: 05 / 09 (queremos completas en desktop) -->
+  <div class="row split-50 h72 img-row row-05-09">
     <div class="cell">
       <img src="images/work-05.jpg" alt="Project 05">
     </div>
