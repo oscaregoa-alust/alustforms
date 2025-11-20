@@ -9,11 +9,16 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:var(--bg); color:var(--fg);
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
       font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      overflow-x:hidden;
     }
     a{color:inherit; text-decoration:none}
     a:hover{opacity:.8}
+
+    /* Lateral label */
     .vertical-label{
       position:fixed; top:50%; left:0;
       transform:translateY(-50%) rotate(-90deg);
@@ -22,6 +27,8 @@
       color:#fff; white-space:nowrap; opacity:.95;
       padding-left:10px; pointer-events:none; font-weight:600;
     }
+
+    /* Top nav */
     .util{
       position:fixed; right:0; top:0; height:64px;
       display:flex; align-items:center; gap:48px;
@@ -29,15 +36,30 @@
       font-size:.9rem; letter-spacing:.28em;
     }
     .util a{ color:#fff; font-weight:600; }
+
+    /* HERO */
     .hero{
-      position:relative; height:100vh; min-height:540px; overflow:hidden;
+      position:relative;
+      height:100vh;
+      min-height:540px;
+      overflow:hidden;
     }
     .hero-left, .hero-right{
       position:absolute; top:0; bottom:0;
-      background-position:center; background-size:cover; filter:saturate(98%);
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      filter:saturate(98%);
     }
-    .hero-left { left:0;  width:65%; background-image:url("images/hero-left.jpg"); }
-    .hero-right{ right:0; width:35%; background-image:url("images/hero-right.jpg"); }
+    .hero-left {
+      left:0; width:65%;
+      background-image:url("images/hero-left.jpg");
+    }
+    .hero-right{
+      right:0; width:35%;
+      background-image:url("images/hero-right.jpg");
+    }
+
     .cities{
       position:absolute; right:18px; bottom:18px; z-index:3;
       display:flex; gap:18px; align-items:center;
@@ -45,41 +67,69 @@
     }
     .cities span{ color:#E8E8E8; font-weight:600; }
     .sep{opacity:.5; color:#aaa;}
+
     .scroll{
       position:absolute; left:24px; bottom:26px; z-index:3;
       width:1px; height:42px; background:#fff; opacity:.6;
       animation:float 1.7s ease-in-out infinite;
     }
-    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+      100%{transform:translateY(0)}
+    }
+
+    /* LOGO SUPERPUESTO */
     .logo-overlay{
       position:fixed; inset:0; height:100vh; z-index:40;
       display:grid; place-items:center; pointer-events:none;
       transition:opacity .25s ease;
     }
-    .logo{ max-height:230px; width:auto; display:block;
-           filter:drop-shadow(0 8px 18px rgba(0,0,0,.55)); }
-    .tag{ margin-top:12px; color:#f2f2f2; opacity:.95;
-          letter-spacing:.22em; font-size:clamp(12px,1.5vw,16px); }
+    .logo{
+      max-height:230px; width:auto; display:block;
+      filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));
+      transition:transform .25s ease;
+    }
+    .tag{
+      margin-top:12px; color:#f2f2f2; opacity:.95;
+      letter-spacing:.22em; font-size:clamp(12px,1.5vw,16px);
+      transition:opacity .25s ease;
+    }
+
+    /* GRID DE OBRAS */
     .strips{ margin:0; padding:0; }
-    .row{ display:flex; gap:0; width:100%; height:var(--h, 72vh); min-height:420px; }
+    .row{
+      display:flex; gap:0; width:100%;
+      height:var(--h, 72vh); min-height:420px;
+    }
     .row + .row{ margin-top:0; }
+
     .cell{
       flex:1 1 auto;
       background-position:center;
       background-size:cover;
       background-repeat:no-repeat;
     }
+
     .split-50 .cell:first-child,
     .split-50 .cell:last-child {
       flex-basis:50%; max-width:50%;
     }
-    .full-100 .cell{ flex-basis:100%; max-width:100%; }
+    .full-100 .cell{
+      flex-basis:100%; max-width:100%;
+    }
+
     .h80{ --h:80vh; }
     .h74{ --h:74vh; }
     .h72{ --h:72vh; }
     .h68{ --h:68vh; }
-    .row.auto{ height:auto; min-height:0; align-items:stretch; }
-    .row.auto .cell:first-child{ display:flex; }
+
+    .row.auto{
+      height:auto; min-height:0; align-items:stretch;
+    }
+    .row.auto .cell:first-child{
+      display:flex;
+    }
     .row.auto .cell:first-child img{
       width:100%; height:auto; display:block;
     }
@@ -87,34 +137,116 @@
       background-size:cover; background-position:center;
       min-height:1px;
     }
-    .row.full-100{ height:auto; min-height:0; }
-    .row.full-100 .cell{ background:none; padding:0; margin:0; }
-    .row.full-100 img{ display:block; width:100%; height:auto; }
+
+    .row.full-100{
+      height:auto; min-height:0;
+    }
+    .row.full-100 .cell{
+      background:none; padding:0; margin:0;
+    }
+    .row.full-100 img{
+      display:block; width:100%; height:auto;
+    }
+
+    /* --------- MOBILE / TABLET --------- */
     @media (max-width:900px){
-      .hero-left, .hero-right{ width:100%; }
-      .hero-left{ height:50vh; bottom:auto; }
-      .hero-right{ top:50vh; height:50vh; }
-      .logo{max-height:170px}
-      .cities{right:14px; bottom:14px; gap:12px}
-      .vertical-label{font-size:.75rem; letter-spacing:.25em}
-      .util{gap:28px}
-      .row{ flex-direction:column; height:auto; min-height:0; }
-      .cell{ min-height:54vh; }
+      :root{ --pad:16px; }
+
+      body{
+        font-size:15px;
+      }
+
+      .util{
+        gap:24px;
+        font-size:.75rem;
+        letter-spacing:.22em;
+        height:56px;
+        padding:0 14px;
+        background:linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,0));
+      }
+
+      .vertical-label{
+        display:none; /* la quitamos en móvil para evitar desborde */
+      }
+
+      .hero{
+        display:flex;
+        flex-direction:column;
+        height:100vh;
+        min-height:480px;
+      }
+      .hero-left,
+      .hero-right{
+        position:relative;
+        top:auto; bottom:auto; left:0; right:0;
+        width:100%;
+        height:50vh;
+      }
+      .hero-left{
+        order:1;
+      }
+      .hero-right{
+        order:2;
+      }
+
+      .cities{
+        right:14px; bottom:14px; gap:12px;
+        font-size:.75rem; letter-spacing:.22em;
+      }
+
+      .logo{
+        max-height:170px;
+      }
+
+      .row{
+        flex-direction:column;
+        height:auto;
+        min-height:0;
+      }
+      .cell{
+        min-height:48vh;
+      }
       .split-50 .cell:first-child,
       .split-50 .cell:last-child,
       .row.auto .cell,
       .row.full-100 .cell{
-        max-width:100%; flex-basis:100%;
+        max-width:100%;
+        flex-basis:100%;
+      }
+
+      /* Fila con img + fondo: mejor alturas más suaves */
+      .row.auto .cell:last-child{
+        min-height:40vh;
       }
     }
+
+    /* Extra pequeño (teléfonos muy angostos) */
+    @media (max-width:600px){
+      .hero{
+        min-height:420px;
+      }
+      .hero-left,
+      .hero-right{
+        height:45vh;
+      }
+      .cell{
+        min-height:42vh;
+      }
+      .cities{
+        font-size:.7rem;
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="vertical-label">D&nbsp;E&nbsp;S&nbsp;I&nbsp;G&nbsp;N&nbsp;&nbsp;S&nbsp;T&nbsp;U&nbsp;D&nbsp;I&nbsp;O</div>
+
 <nav class="util">
   <a href="contact.html">C&nbsp;O&nbsp;N&nbsp;T&nbsp;A&nbsp;C&nbsp;T</a>
   <a href="https://instagram.com/alustforms" target="_blank" rel="noopener">I&nbsp;G</a>
 </nav>
+
 <header class="hero" id="hero">
   <div class="hero-left"></div>
   <div class="hero-right"></div>
@@ -123,67 +255,81 @@
   </div>
   <div class="scroll"></div>
 </header>
+
 <div class="logo-overlay" id="logoOverlay">
   <div style="text-align:center">
     <img src="images/logo.png" class="logo" id="logo" alt="ALUST" />
     <div class="tag" id="tag">FORM &amp; PURPOSE</div>
   </div>
 </div>
+
 <section class="strips">
   <!-- Fila 1 -->
   <div class="row h80">
     <div class="cell" style="background-image:url('images/work-01.jpg'); flex-basis:65%; max-width:65%;"></div>
     <div class="cell" style="background-image:url('images/work-02.jpg'); flex-basis:35%; max-width:35%;"></div>
   </div>
-  <!-- Fila 2: work-07 ahora va aquí como full-bleed -->
+
+  <!-- Fila 2: work-07 full ancho -->
   <div class="row full-100">
     <div class="cell">
-      <img src="images/work-07.jpg" alt="Project 07" style="width:100%; height:auto; display:block;">
+      <img src="images/work-07.jpg" alt="Project 07">
     </div>
   </div>
+
   <!-- Fila 3 -->
   <div class="row split-50 h74">
     <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%; flex-basis:35%; max-width:35%;"></div>
     <div class="cell" style="background-image:url('images/work-04.jpg'); flex-basis:65%; max-width:65%;"></div>
   </div>
-  <!-- Fila 4: work-05 y work-09 al 50% cada una -->
+
+  <!-- Fila 4: work-05 y work-09 al 50% -->
   <div class="row split-50 auto">
     <div class="cell">
       <img src="images/work-05.jpg" alt="Project 05">
     </div>
     <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
   </div>
+
   <!-- Fila 5 -->
   <div class="row split-50 h68">
     <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
     <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
   </div>
-  <!-- Fila 6: work-10 full width, menos zoom -->
+
+  <!-- Fila 6: work-10 full width -->
   <div class="row full-100">
     <div class="cell">
-      <img src="images/work-10.jpg" alt="Project 10" style="width:100%; height:auto; display:block;">
+      <img src="images/work-10.jpg" alt="Project 10">
     </div>
   </div>
 </section>
+
 <script>
 (function(){
   const hero = document.getElementById('hero');
   const overlay = document.getElementById('logoOverlay');
   const logo = document.getElementById('logo');
   const tag = document.getElementById('tag');
+
   function onScroll(){
+    if(!hero) return;
     const rect = hero.getBoundingClientRect();
-    const vh = window.innerHeight;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
     const inView = rect.bottom > 0 && rect.top < vh;
+
     overlay.style.visibility = inView ? 'visible' : 'hidden';
     if(!inView){ return; }
+
     const scrolled = Math.min(Math.max(rect.bottom / Math.max(rect.height, 1), 0), 1);
     const opacity = Math.pow(scrolled, 1.2);
+
     overlay.style.opacity = opacity;
     const shift = (1 - scrolled) * 20;
-    logo.style.transform = `translateY(${-shift}px)`;
+    logo.style.transform = 'translateY(' + (-shift) + 'px)';
     tag.style.opacity = opacity;
   }
+
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('load', onScroll);
   window.addEventListener('resize', onScroll);
