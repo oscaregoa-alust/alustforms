@@ -218,6 +218,18 @@
       .row.auto .cell:last-child{
         min-height:40vh;
       }
+
+      /* AJUSTES ESPECÍFICOS PARA IMÁGENES PROBLEMÁTICAS EN MÓVIL */
+      .bg-w01,
+      .bg-w02,
+      .bg-w03,
+      .bg-w04,
+      .bg-w09{
+        background-size:contain !important;
+        background-position:center center !important;
+        background-repeat:no-repeat;
+        min-height:55vh;
+      }
     }
 
     /* Extra pequeño (teléfonos muy angostos) */
@@ -231,6 +243,13 @@
       }
       .cell{
         min-height:42vh;
+      }
+      .bg-w01,
+      .bg-w02,
+      .bg-w03,
+      .bg-w04,
+      .bg-w09{
+        min-height:50vh;
       }
       .cities{
         font-size:.7rem;
@@ -266,8 +285,8 @@
 <section class="strips">
   <!-- Fila 1 -->
   <div class="row h80">
-    <div class="cell" style="background-image:url('images/work-01.jpg'); flex-basis:65%; max-width:65%;"></div>
-    <div class="cell" style="background-image:url('images/work-02.jpg'); flex-basis:35%; max-width:35%;"></div>
+    <div class="cell bg-w01" style="background-image:url('images/work-01.jpg'); flex-basis:65%; max-width:65%;"></div>
+    <div class="cell bg-w02" style="background-image:url('images/work-02.jpg'); flex-basis:35%; max-width:35%;"></div>
   </div>
 
   <!-- Fila 2: work-07 full ancho -->
@@ -279,8 +298,8 @@
 
   <!-- Fila 3 -->
   <div class="row split-50 h74">
-    <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%; flex-basis:35%; max-width:35%;"></div>
-    <div class="cell" style="background-image:url('images/work-04.jpg'); flex-basis:65%; max-width:65%;"></div>
+    <div class="cell bg-w03" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%; flex-basis:35%; max-width:35%;"></div>
+    <div class="cell bg-w04" style="background-image:url('images/work-04.jpg'); flex-basis:65%; max-width:65%;"></div>
   </div>
 
   <!-- Fila 4: work-05 y work-09 al 50% -->
@@ -288,7 +307,7 @@
     <div class="cell">
       <img src="images/work-05.jpg" alt="Project 05">
     </div>
-    <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
+    <div class="cell bg-w09" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
   </div>
 
   <!-- Fila 5 -->
