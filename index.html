@@ -69,6 +69,10 @@
       background-size:cover;
       background-repeat:no-repeat;
     }
+    .split-65 .cell:first-child{ flex-basis:65%; max-width:65%; }
+    .split-65 .cell:last-child { flex-basis:35%; max-width:35%; }
+    .split-35 .cell:first-child{ flex-basis:35%; max-width:35%; }
+    .split-35 .cell:last-child { flex-basis:65%; max-width:65%; }
     .split-50 .cell:first-child,
     .split-50 .cell:last-child {
       flex-basis:50%; max-width:50%;
@@ -89,7 +93,12 @@
     }
     .row.full-100{ height:auto; min-height:0; }
     .row.full-100 .cell{ background:none; padding:0; margin:0; }
-    .row.full-100 img{ display:block; width:100%; height:auto; }
+    .row.full-100 img{
+      display:block;
+      width:100%;
+      height:600px;
+      object-fit:cover;
+    }
     @media (max-width:900px){
       .hero-left, .hero-right{ width:100%; }
       .hero-left{ height:50vh; bottom:auto; }
@@ -100,6 +109,10 @@
       .util{gap:28px}
       .row{ flex-direction:column; height:auto; min-height:0; }
       .cell{ min-height:54vh; }
+      .split-65 .cell:first-child,
+      .split-65 .cell:last-child,
+      .split-35 .cell:first-child,
+      .split-35 .cell:last-child,
       .split-50 .cell:first-child,
       .split-50 .cell:last-child,
       .row.auto .cell,
@@ -135,19 +148,27 @@
 </div>
 
 <section class="strips">
+
   <!-- Fila 1 -->
-  <div class="row split-50 h80">
+  <div class="row split-65 h80">
     <div class="cell" style="background-image:url('images/work-01.jpg')"></div>
     <div class="cell" style="background-image:url('images/work-02.jpg')"></div>
   </div>
 
-  <!-- Fila 2 -->
-  <div class="row split-50 h74">
+  <!-- Fila 2: work-07 full-width con object-fit -->
+  <div class="row full-100">
+    <div class="cell">
+      <img src="images/work-07.jpg" alt="Project 07">
+    </div>
+  </div>
+
+  <!-- Fila 3 -->
+  <div class="row split-35 h74">
     <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%;"></div>
     <div class="cell" style="background-image:url('images/work-04.jpg')"></div>
   </div>
 
-  <!-- Fila 3: work-05 y work-09 al 50% cada una -->
+  <!-- Fila 4 -->
   <div class="row split-50 auto">
     <div class="cell">
       <img src="images/work-05.jpg" alt="Project 05">
@@ -155,20 +176,13 @@
     <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
   </div>
 
-  <!-- Fila 4 -->
+  <!-- Fila 5 -->
   <div class="row split-50 h68">
     <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
     <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
   </div>
 
-  <!-- Fila 5: work-07 full width -->
-  <div class="row full-100">
-    <div class="cell">
-      <img src="images/work-07.jpg" alt="Project 07">
-    </div>
-  </div>
-
-  <!-- Fila 6: work-10 full-bleed -->
+  <!-- Fila 6 -->
   <div class="row full-100">
     <div class="cell">
       <img src="images/work-10.jpg" alt="Project 10">
@@ -207,4 +221,3 @@
 
 </body>
 </html>
-
