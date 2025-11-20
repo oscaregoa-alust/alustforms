@@ -61,19 +61,24 @@
     .tag{ margin-top:12px; color:#f2f2f2; opacity:.95;
           letter-spacing:.22em; font-size:clamp(12px,1.5vw,16px); }
     .strips{ margin:0; padding:0; }
-    .row{ display:flex; gap:0; width:100%; height:var(--h, 72vh); min-height:420px; }
-    .row + .row{ margin-top:0; }
+    .row{
+      display:flex; width:100%;
+      min-height:420px;
+      height:var(--h, 72vh);
+      gap:0;
+      flex-wrap:nowrap;
+    }
     .cell{
-      flex:1 1 auto;
       background-position:center;
       background-size:cover;
       background-repeat:no-repeat;
     }
-    .split-50 .cell:first-child,
-    .split-50 .cell:last-child {
-      flex-basis:50%; max-width:50%;
+    .w65 { flex-basis:65%; max-width:65%; }
+    .w35 { flex-basis:35%; max-width:35%; }
+    .w50 { flex-basis:50%; max-width:50%; }
+    .full-width img {
+      width:100%; height:auto; display:block; object-fit:cover;
     }
-    .full-100 .cell{ flex-basis:100%; max-width:100%; }
     .h80{ --h:80vh; }
     .h74{ --h:74vh; }
     .h72{ --h:72vh; }
@@ -89,7 +94,7 @@
     }
     .row.full-100{ height:auto; min-height:0; }
     .row.full-100 .cell{ background:none; padding:0; margin:0; }
-    .row.full-100 img{ display:block; width:100%; height:auto; }
+    .row.full-100 img{ display:block; width:100%; height:auto; object-fit:cover; }
     @media (max-width:900px){
       .hero-left, .hero-right{ width:100%; }
       .hero-left{ height:50vh; bottom:auto; }
@@ -98,96 +103,13 @@
       .cities{right:14px; bottom:14px; gap:12px}
       .vertical-label{font-size:.75rem; letter-spacing:.25em}
       .util{gap:28px}
-      .row{ flex-direction:column; height:auto; min-height:0; }
-      .cell{ min-height:54vh; }
-      .split-50 .cell:first-child,
-      .split-50 .cell:last-child,
-      .row.auto .cell,
-      .row.full-100 .cell{
-        max-width:100%; flex-basis:100%;
+      .row{ flex-direction:column; height:auto; min-height:0; flex-wrap:wrap; }
+      .cell, .w65, .w35, .w50{
+        min-height:54vh;
+        max-width:100%;
+        flex-basis:100%;
       }
     }
   </style>
 </head>
 <body>
-<div class="vertical-label">D&nbsp;E&nbsp;S&nbsp;I&nbsp;G&nbsp;N&nbsp;&nbsp;S&nbsp;T&nbsp;U&nbsp;D&nbsp;I&nbsp;O</div>
-<nav class="util">
-  <a href="contact.html">C&nbsp;O&nbsp;N&nbsp;T&nbsp;A&nbsp;C&nbsp;T</a>
-  <a href="https://instagram.com/alustforms" target="_blank" rel="noopener">I&nbsp;G</a>
-</nav>
-<header class="hero" id="hero">
-  <div class="hero-left"></div>
-  <div class="hero-right"></div>
-  <div class="cities">
-    <span>TIJUANA</span> <span class="sep">|</span> <span>SAN DIEGO</span>
-  </div>
-  <div class="scroll"></div>
-</header>
-<div class="logo-overlay" id="logoOverlay">
-  <div style="text-align:center">
-    <img src="images/logo.png" class="logo" id="logo" alt="ALUST" />
-    <div class="tag" id="tag">FORM &amp; PURPOSE</div>
-  </div>
-</div>
-<section class="strips">
-  <!-- Fila 1 -->
-  <div class="row h80">
-    <div class="cell" style="background-image:url('images/work-01.jpg'); flex-basis:65%; max-width:65%;"></div>
-    <div class="cell" style="background-image:url('images/work-02.jpg'); flex-basis:35%; max-width:35%;"></div>
-  </div>
-  <!-- Fila 2: work-07 ahora va aquí como full-bleed -->
-  <div class="row full-100">
-    <div class="cell">
-      <img src="images/work-07.jpg" alt="Project 07" style="width:100%; height:auto; display:block;">
-    </div>
-  </div>
-  <!-- Fila 3 -->
-  <div class="row split-50 h74">
-    <div class="cell" style="background-image:url('images/work-03.jpg'); background-position:center 52%; background-size:110%; flex-basis:35%; max-width:35%;"></div>
-    <div class="cell" style="background-image:url('images/work-04.jpg'); flex-basis:65%; max-width:65%;"></div>
-  </div>
-  <!-- Fila 4: work-05 y work-09 al 50% cada una -->
-  <div class="row split-50 auto">
-    <div class="cell">
-      <img src="images/work-05.jpg" alt="Project 05">
-    </div>
-    <div class="cell" style="background-image:url('images/work-09.jpg'); background-position:center 50%;"></div>
-  </div>
-  <!-- Fila 5 -->
-  <div class="row split-50 h68">
-    <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
-    <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
-  </div>
-  <!-- Fila 6: work-10 full width, menos zoom -->
-  <div class="row full-100">
-    <div class="cell">
-      <img src="images/work-10.jpg" alt="Project 10" style="width:100%; height:auto; display:block;">
-    </div>
-  </div>
-</section>
-<script>
-(function(){
-  const hero = document.getElementById('hero');
-  const overlay = document.getElementById('logoOverlay');
-  const logo = document.getElementById('logo');
-  const tag = document.getElementById('tag');
-  function onScroll(){
-    const rect = hero.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const inView = rect.bottom > 0 && rect.top < vh;
-    overlay.style.visibility = inView ? 'visible' : 'hidden';
-    if(!inView){ return; }
-    const scrolled = Math.min(Math.max(rect.bottom / Math.max(rect.height, 1), 0), 1);
-    const opacity = Math.pow(scrolled, 1.2);
-    overlay.style.opacity = opacity;
-    const shift = (1 - scrolled) * 20;
-    logo.style.transform = `translateY(${-shift}px)`;
-    tag.style.opacity = opacity;
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('load', onScroll);
-  window.addEventListener('resize', onScroll);
-})();
-</script>
-</body>
-</html>
