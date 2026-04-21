@@ -4,428 +4,103 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ALUST — Objects & Spaces</title>
+
   <style>
     :root{ --bg:#0b0b0b; --fg:#eaeaea; --pad:22px; }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--fg);
-      font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      overflow-x:hidden;
-    }
-    a{color:inherit; text-decoration:none}
-    a:hover{opacity:.8}
+    body{ margin:0; background:var(--bg); color:var(--fg); overflow-x:hidden; }
 
-    .vertical-label{
-      position:fixed; top:50%; left:0;
-      transform:translateY(-50%) rotate(-90deg);
-      transform-origin:left top;
-      font-size:.9rem; letter-spacing:.35em; z-index:50;
-      color:#fff; white-space:nowrap; opacity:.95;
-      padding-left:10px; pointer-events:none; font-weight:600;
-    }
+    .hero{ height:100vh; display:flex; }
+    .hero-left{ width:65%; background:url("images/hero-left.jpg") center/cover no-repeat; }
+    .hero-right{ width:35%; background:url("images/hero-right.jpg") center/cover no-repeat; }
 
-    .util{
-      position:fixed; right:0; top:0; height:64px;
-      display:flex; align-items:center; gap:48px;
-      padding:0 var(--pad); z-index:50;
-      font-size:.9rem; letter-spacing:.28em;
-    }
-    .util a{ color:#fff; font-weight:600; }
+    .row{ display:flex; width:100%; }
+    .cell{ flex:1; }
 
-    .hero{
-      position:relative;
-      height:100vh;
-      min-height:540px;
-      overflow:hidden;
-    }
-    .hero-left, .hero-right{
-      position:absolute; top:0; bottom:0;
-      background-position:center;
-      background-size:cover;
-      background-repeat:no-repeat;
-      filter:saturate(98%);
-    }
-    .hero-left {
-      left:0; width:65%;
-      background-image:url("images/hero-left.jpg");
-    }
-    .hero-right{
-      right:0; width:35%;
-      background-image:url("images/hero-right.jpg");
-    }
+    img{ width:100%; display:block; }
 
-    .cities{
-      position:absolute; right:18px; bottom:18px; z-index:3;
-      display:flex; gap:18px; align-items:center;
-      font-size:.88rem; letter-spacing:.26em;
-    }
-    .cities span{ color:#E8E8E8; font-weight:600; }
-    .sep{opacity:.5; color:#aaa;}
+    /* Layout */
+    .w65{ flex-basis:65%; max-width:65%; }
+    .w35{ flex-basis:35%; max-width:35%; }
 
-    .scroll{
-      position:absolute; left:24px; bottom:26px; z-index:3;
-      width:1px; height:42px; background:#fff; opacity:.6;
-      animation:float 1.7s ease-in-out infinite;
-    }
-    @keyframes float{
-      0%{transform:translateY(0)}
-      50%{transform:translateY(-10px)}
-      100%{transform:translateY(0)}
-    }
-
-    .logo-overlay{
-      position:fixed; inset:0; height:100vh; z-index:40;
-      display:grid; place-items:center; pointer-events:none;
-      transition:opacity .25s ease;
-    }
-    .logo{
-      max-height:230px; width:auto; display:block;
-      filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));
-      transition:transform .25s ease;
-    }
-    .tag{
-      margin-top:12px; color:#f2f2f2; opacity:.95;
-      letter-spacing:.22em; font-size:clamp(12px,1.5vw,16px);
-      transition:opacity .25s ease;
-    }
-
-    .strips{ margin:0; padding:0; }
-
-    .row{
-      display:flex; gap:0; width:100%;
-      height:var(--h, 72vh); min-height:420px;
-    }
-    .row + .row{ margin-top:0; }
-
-    .cell{
-      flex:1 1 auto;
-      background-position:center;
-      background-size:cover;
-      background-repeat:no-repeat;
-    }
-
-    .split-50 .cell:first-child,
-    .split-50 .cell:last-child {
-      flex-basis:50%; max-width:50%;
-    }
-    .full-100 .cell{
-      flex-basis:100%; max-width:100%;
-    }
-
-    .h80{ --h:80vh; }
-    .h74{ --h:74vh; }
-    .h72{ --h:72vh; }
-    .h68{ --h:68vh; }
-
-    .row.auto{
-      height:auto; min-height:0; align-items:stretch;
-    }
-    .row.auto .cell:first-child{
-      display:flex;
-    }
-    .row.auto .cell:first-child img{
-      width:100%; height:auto; display:block;
-    }
-    .row.auto .cell:last-child{
-      background-size:cover; background-position:center;
-      min-height:1px;
-    }
-
-    .row.full-100{
-      height:auto; min-height:0;
-    }
-    .row.full-100 .cell{
-      background:none; padding:0; margin:0;
-    }
-    .row.full-100 img{
-      display:block; width:100%; height:auto;
-    }
-
-    .row.img-row{
-      position:relative;
-    }
-    .row.img-row .cell{
-      position:relative;
-      overflow:hidden;
-    }
-    .row.img-row .cell img{
-      width:100%;
-      height:100%;
-      display:block;
-      object-fit:cover; /* desktop */
-    }
-
-    .row-05-09{
-      height:auto;
-      min-height:0;
-    }
-    .row-05-09 .cell{
-      height:auto;
-    }
-    .row-05-09 .cell img{
-      height:auto;
-      object-fit:contain;
-    }
-
-    /* visibilidad por dispositivo */
-    .desktop-only{}
-    .mobile-only{ display:none; }
-
-    /* --------- MOBILE / TABLET --------- */
+    /* Mobile FIX */
     @media (max-width:900px){
-      :root{ --pad:16px; }
-
-      body{
-        font-size:15px;
-      }
-
-      .util{
-        gap:24px;
-        font-size:.75rem;
-        letter-spacing:.22em;
-        height:56px;
-        padding:0 14px;
-        background:none !important;      /* SIN difuminado negro en móvil */
-      }
-
-      /* Mostrar DESIGN STUDIO también en móvil, solo más discreto */
-      .vertical-label{
-        display:block;
-        font-size:.65rem;
-        letter-spacing:.25em;
-        left:4px;
-        opacity:.9;
-      }
-
-      .hero{
-        display:flex;
-        flex-direction:column;
-        height:100vh;
-        min-height:480px;
-      }
-      .hero-left,
-      .hero-right{
-        position:relative;
-        top:auto; bottom:auto; left:0; right:0;
-        width:100%;
-        height:50vh;
-      }
-      .hero-left{ order:1; }
-      .hero-right{ order:2; }
-
-      .cities{
-        right:14px;
-        bottom:14px;
-        gap:12px;
-        font-size:.75rem;
-        letter-spacing:.22em;
-        background:transparent !important;   /* sin recuadro negro */
-        padding:0 !important;
-      }
-
-      .logo{
-        max-height:170px;
-      }
+      .hero{ flex-direction:column; height:auto; }
+      .hero-left, .hero-right{ width:100%; height:50vh; }
 
       .row{
         flex-direction:column;
-        height:auto;
-        min-height:0;
-      }
-      .cell{
-        min-height:48vh;
-      }
-      .split-50 .cell:first-child,
-      .split-50 .cell:last-child,
-      .row.auto .cell,
-      .row.full-100 .cell{
-        max-width:100%;
-        flex-basis:100%;
       }
 
-      .row.auto .cell:last-child{
-        min-height:40vh;
-      }
-
-      .row.img-row{
-        height:auto !important;
-        min-height:0 !important;
-      }
-      .row.img-row .cell{
-        height:auto !important;
-        min-height:0 !important;
-      }
-      .row.img-row .cell img{
-        width:100%;
-        height:auto !important;
-        object-fit:contain;
-      }
-
-      /* esconder filas complejas en móvil (work-01–04) */
-      .desktop-only{
-        display:none !important;
-      }
-
-      /* contenedor simple solo para móvil (01–04) */
-      .mobile-only{
-        display:block !important;
-      }
-
-      /* Imágenes 01–04: full-width, sin separación */
-      .mobile-images-01-04{
-        padding:0 !important;
-        margin:0 !important;
-      }
-      .mobile-images-01-04 img{
-        display:block !important;
-        width:100vw !important;
-        max-width:100vw !important;
-        height:auto !important;
-        margin:0 !important;
-        padding:0 !important;
+      .cell, .w65, .w35{
+        flex-basis:100% !important;
+        max-width:100% !important;
       }
     }
-
-    @media (max-width:600px){
-      .hero{
-        min-height:420px;
-      }
-      .hero-left,
-      .hero-right{
-        height:45vh;
-      }
-      .cell{
-        min-height:42vh;
-      }
-      .row.img-row .cell{
-        min-height:0 !important;
-      }
-      .row.img-row .cell img{
-        height:auto !important;
-      }
-      .cities{
-        font-size:.7rem;
-      }
-    }
-
   </style>
 </head>
+
 <body>
-<div class="vertical-label">D&nbsp;E&nbsp;S&nbsp;I&nbsp;G&nbsp;N&nbsp;&nbsp;S&nbsp;T&nbsp;U&nbsp;D&nbsp;I&nbsp;O</div>
 
-<nav class="util">
-  <a href="contact.html">C&nbsp;O&nbsp;N&nbsp;T&nbsp;A&nbsp;C&nbsp;T</a>
-  <a href="https://instagram.com/alustforms" target="_blank" rel="noopener">I&nbsp;G</a>
-</nav>
-
-<header class="hero" id="hero">
+<!-- HERO -->
+<div class="hero">
   <div class="hero-left"></div>
   <div class="hero-right"></div>
-  <div class="cities">
-    <span>TIJUANA</span> <span class="sep">|</span> <span>SAN DIEGO</span>
-  </div>
-  <div class="scroll"></div>
-</header>
+</div>
 
-<div class="logo-overlay" id="logoOverlay">
-  <div style="text-align:center">
-    <img src="images/logo.png" class="logo" id="logo" alt="ALUST" />
-    <div class="tag" id="tag">FORM &amp; PURPOSE</div>
+<!-- ROW 1 -->
+<div class="row">
+  <div class="cell w65">
+    <img src="images/work-01.jpg">
+  </div>
+  <div class="cell w35">
+    <img src="images/work-02.jpg">
   </div>
 </div>
 
-<section class="strips">
-  <!-- Fila 1: 01 / 02 (solo desktop) -->
-  <div class="row h80 img-row desktop-only">
-    <div class="cell" style="flex-basis:65%; max-width:65%;">
-      <img src="images/work-01.jpg" alt="Project 01">
-    </div>
-    <div class="cell" style="flex-basis:35%; max-width:35%;">
-      <img src="images/work-02.jpg" alt="Project 02">
-    </div>
+<!-- ROW 2 -->
+<div class="row">
+  <div class="cell">
+    <img src="images/work-07.jpg">
   </div>
+</div>
 
-  <!-- Fila 3: 03 / 04 (solo desktop) -->
-  <div class="row split-50 h74 img-row desktop-only">
-    <div class="cell" style="flex-basis:35%; max-width:35%;">
-      <img src="images/work-03.jpg" alt="Project 03">
-    </div>
-    <div class="cell" style="flex-basis:65%; max-width:65%;">
-      <img src="images/work-04.jpg" alt="Project 04">
-    </div>
+<!-- ROW 3 -->
+<div class="row">
+  <div class="cell w35">
+    <img src="images/work-03.png"> <!-- 👈 ONLY PNG -->
   </div>
-
-  <!-- Versión simple de 01–04 SOLO móvil -->
-  <div class="mobile-only mobile-images-01-04">
-    <img src="images/work-01.jpg" alt="Project 01">
-    <img src="images/work-02.jpg" alt="Project 02">
-    <img src="images/work-03.jpg" alt="Project 03">
-    <img src="images/work-04.jpg" alt="Project 04">
+  <div class="cell w65">
+    <img src="images/work-04.jpg">
   </div>
+</div>
 
-  <!-- Fila 2: work-07 full ancho (visible en ambos) -->
-  <div class="row full-100">
-    <div class="cell">
-      <img src="images/work-07.jpg" alt="Project 07">
-    </div>
+<!-- ROW 4 -->
+<div class="row">
+  <div class="cell">
+    <img src="images/work-05.jpg">
   </div>
-
-  <!-- Fila 4: 05 / 09 -->
-  <div class="row split-50 h72 img-row row-05-09">
-    <div class="cell">
-      <img src="images/work-05.jpg" alt="Project 05">
-    </div>
-    <div class="cell">
-      <img src="images/work-09.jpg" alt="Project 09">
-    </div>
+  <div class="cell">
+    <img src="images/work-09.jpg">
   </div>
+</div>
 
-  <!-- Fila 5 -->
-  <div class="row split-50 h68">
-    <div class="cell" style="background-image:url('images/work-06.jpg')"></div>
-    <div class="cell" style="background-image:url('images/work-08.jpg')"></div>
+<!-- ROW 5 -->
+<div class="row">
+  <div class="cell">
+    <img src="images/work-06.jpg">
   </div>
-
-  <!-- Fila 6: work-10 full width -->
-  <div class="row full-100">
-    <div class="cell">
-      <img src="images/work-10.jpg" alt="Project 10">
-    </div>
+  <div class="cell">
+    <img src="images/work-08.jpg">
   </div>
-</section>
+</div>
 
-<script>
-(function(){
-  const hero = document.getElementById('hero');
-  const overlay = document.getElementById('logoOverlay');
-  const logo = document.getElementById('logo');
-  const tag = document.getElementById('tag');
+<!-- ROW 6 -->
+<div class="row">
+  <div class="cell">
+    <img src="images/work-10.jpg">
+  </div>
+</div>
 
-  function onScroll(){
-    if(!hero) return;
-    const rect = hero.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const inView = rect.bottom > 0 && rect.top < vh;
-
-    overlay.style.visibility = inView ? 'visible' : 'hidden';
-    if(!inView){ return; }
-
-    const scrolled = Math.min(Math.max(rect.bottom / Math.max(rect.height, 1), 0), 1);
-    const opacity = Math.pow(scrolled, 1.2);
-
-    overlay.style.opacity = opacity;
-    const shift = (1 - scrolled) * 20;
-    logo.style.transform = 'translateY(' + (-shift) + 'px)';
-    tag.style.opacity = opacity;
-  }
-
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('load', onScroll);
-  window.addEventListener('resize', onScroll);
-})();
-</script>
 </body>
 </html>
