@@ -40,6 +40,8 @@
     .hero-right{ right:0; width:35%; background-image:url("images/hero-right.jpg"); }
     .logo-overlay{
       position:fixed; inset:0; display:grid; place-items:center;
+      pointer-events:none; z-index:40;
+      transition: opacity 0.3s ease;
     }
     .logo{ max-height:230px; }
     section{ display:block; }
@@ -83,6 +85,9 @@
   <a href="contact.html">CONTACT</a>
   <a href="https://www.instagram.com/alust.studio/" target="_blank">IG</a>
 </nav>
+<div class="logo-overlay" id="logoOverlay">
+  <img src="images/logo.png" class="logo" alt="ALUST">
+</div>
 <header class="hero">
   <div class="hero-left"></div>
   <div class="hero-right"></div>
@@ -131,5 +136,22 @@
     </div>
   </div>
 </section>
+<script>
+  const overlay = document.getElementById('logoOverlay');
+  const fadeStart = 0;
+  const fadeEnd = window.innerHeight * 0.4;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY <= fadeStart) {
+      overlay.style.opacity = '1';
+    } else if (scrollY >= fadeEnd) {
+      overlay.style.opacity = '0';
+    } else {
+      const opacity = 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
+      overlay.style.opacity = opacity;
+    }
+  });
+</script>
 </body>
 </html>
