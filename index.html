@@ -38,17 +38,33 @@
     }
     .hero-left { left:0; width:65%; background-image:url("images/hero-left.jpg"); }
     .hero-right{ right:0; width:35%; background-image:url("images/hero-right.jpg"); }
-    .cities{
-      position:absolute; right:18px; bottom:18px;
-      display:flex; gap:18px; font-size:.88rem; letter-spacing:.26em;
-    }
     .logo-overlay{
       position:fixed; inset:0; display:grid; place-items:center;
     }
     .logo{ max-height:230px; }
-    .row{ display:flex; width:100%; }
-    .cell{ flex:1; }
-    img{ width:100%; display:block; }
+    section{
+      font-size:0;
+      line-height:0;
+    }
+    .row{
+      display:flex;
+      width:100%;
+      gap:0;
+      margin:0;
+      padding:0;
+    }
+    .cell{
+      flex:1;
+      margin:0;
+      padding:0;
+      line-height:0;
+    }
+    img{
+      width:100%;
+      display:block;
+      margin:0;
+      padding:0;
+    }
     .w65{ flex-basis:65%; max-width:65%; }
     .w35{ flex-basis:35%; max-width:35%; }
     @media (max-width:900px){
@@ -88,7 +104,7 @@
   </div>
   <div class="row">
     <div class="cell w35">
-      <img src="images/work-03.png"> <!-- fixed -->
+      <img src="images/work-03.png">
     </div>
     <div class="cell w65">
       <img src="images/work-04.jpg">
